@@ -43,8 +43,8 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
 	Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
 	msg["Subject"] = Header(Subject, 'utf-8') #邮件标题
-        msg["From"] = Header(MAILBOXSEND, 'utf-8')
-        msg["To"] = Header(MAILBOXRECV, 'utf-8')
+	msg["From"] = Header(MAILBOXSEND, 'utf-8')
+	msg["To"] = Header(MAILBOXRECV, 'utf-8')
 	msgContent = MIMEText(Content ,'html','utf-8')  #邮件内容
 	msgContent["Accept-Language"]="zh-CN"
 	msgContent["Accept-Charset"]="ISO-8859-1,utf-8"  
