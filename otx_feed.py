@@ -33,29 +33,26 @@ proxies = {
 '''
 
 # 发送邮件通知
-def sendMail(filename, text="OTX_FEED_TODAY", error='' ):
+def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	print('发送邮件...')
 	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	duration = datetime.datetime.utcnow() - dkStart
+	
+	Subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
 	Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
 	Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
-	msg = MIMEMultipart(Content, 'plain', 'utf-8')
-	msg["From"] = Header(MAILBOXSEND, 'utf-8')
-	msg["To"] = Header(MAILBOXRECV, 'utf-8')
-	subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
-	msg["Subject"] = Header(subject, 'utf-8')
-	
+	msg["Subject"] = unicode(Subject) #邮件标题
+	msg["From"]    = Mail_User  
+	msg["To"]      = ",".join(Mail_To)     
 	msgContent = MIMEText(Content ,'html','utf-8')  #邮件内容
 	msgContent["Accept-Language"]="zh-CN"
 	msgContent["Accept-Charset"]="ISO-8859-1,utf-8"  
 	msg.attach(msgContent)
+	attachment = MIMEApplication(open(ZIPFILE,'rb').read()) 
+	attachment.add_header('Content-Disposition', 'attachment', filename=os.path.basename(ZIPFILE))  
+	msg.attach(attachment)  
+	
 
-	attachment = MIMEApplication(open(filename,'rb').read()) 
-	attachment.add_header('Content-Disposition', 'attachment', filename=os.path.basename(filename))  
-	msg.attach(attachment) 
-	
-	
-	
 	try:
 		server = smtplib.SMTP()
 		server.connect(mail_host, 25)
