@@ -12,7 +12,7 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
-
+from email.mime.application import MIMEApplication
 
 # 系统变量
 OTXKEY = os.environ['OTXKEY']
