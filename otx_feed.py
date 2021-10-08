@@ -25,6 +25,8 @@ MAILPWSEND = os.environ['MAILPWSEND']
 api_key = OTXKEY
 mail_host = 'smtp.qq.com'
 dkStart = datetime.datetime.utcnow()
+Current_cwd = os.path.abspath(os.path.dirname(__file__))
+Mail_List_File = Current_cwd + r'/Mail_list.ini'
 
 '''
 proxies = {
@@ -38,13 +40,20 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	duration = datetime.datetime.utcnow() - dkStart
 	
+	Mail_List = file(Mail_List_File)#邮件地址列表
+	Mail_To   = []
+	for list in Mail_List:#读取邮件列表文件
+		Mail_To.extend(list.strip().split(','))
+	Mail_List.close()
+	msg = MIMEMultipart() 
+	
 	msg = MIMEMultipart() 
 	Subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
 	Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
 	Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
 	msg["Subject"] = Header(Subject, 'utf-8') #邮件标题
 	msg["From"] = Header(MAILBOXSEND, 'utf-8')
-	msg["To"] = Header(MAILBOXRECV, 'utf-8')
+	msg["To"] = Header(",".join(Mail_To), 'utf-8')
 	msgContent = MIMEText(Content ,'html','utf-8')  #邮件内容
 	msgContent["Accept-Language"]="zh-CN"
 	msgContent["Accept-Charset"]="ISO-8859-1,utf-8"  
@@ -58,7 +67,7 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 		server = smtplib.SMTP()
 		server.connect(mail_host, 25)
 		server.login(MAILBOXSEND, MAILPWSEND)
-		server.sendmail(MAILBOXSEND, MAILBOXRECV, msg.as_string())
+		server.sendmail(MAILBOXSEND, Mail_To, msg.as_string())
 		server.quit()
 		print("邮件发送成功！")
 	except Exception as e:
