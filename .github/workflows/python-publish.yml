@@ -11,6 +11,12 @@ name: Upload Python Package
 on:
   release:
     types: [published]
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: 15 0-11/3 * * *
 
 jobs:
   deploy:
