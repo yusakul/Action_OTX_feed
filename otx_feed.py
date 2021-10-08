@@ -37,7 +37,8 @@ def sendMail(filename, text="OTX_FEED_TODAY", error='' ):
 	print('发送邮件...')
 	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	duration = datetime.datetime.utcnow() - dkStart
-	content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
+	Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
+	Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
 	msg = MIMEMultipart(content, 'plain', 'utf-8')
 	msg["From"] = Header(MAILBOXSEND, 'utf-8')
 	msg["To"] = Header(MAILBOXRECV, 'utf-8')
@@ -51,7 +52,10 @@ def sendMail(filename, text="OTX_FEED_TODAY", error='' ):
 
 	attachment = MIMEApplication(open(filename,'rb').read()) 
 	attachment.add_header('Content-Disposition', 'attachment', filename=os.path.basename(filename))  
-	msg.attach(attachment)  
+	msg.attach(attachment) 
+	
+	
+	
 	try:
 		server = smtplib.SMTP()
 		server.connect(mail_host, 25)
