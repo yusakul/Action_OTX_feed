@@ -38,8 +38,7 @@ jobs:
         python ./otx_feed.py
       env:
         OTXKEY: ${{ secrets.OTXKEY }}
-        PW: ${{ secrets.PW }}
-        SERVER: ${{ secrets.SERVER }}
-        SCKEY: ${{ secrets.SCKEY }}
         MAIL_NOTICE: ${{ secrets.MAI_NOTICE }}
-        MAILBOX: ${{ secrets.MAILBOX }}
+        MAILBOXRECV: ${{ secrets.MAILBOXRECV }}
+        MAILBOXSEND: ${{ secrets.MAILBOXSEND }}
+        MAILPWSEND: ${{ secrets.MAILPWSEND }}
