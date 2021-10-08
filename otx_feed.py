@@ -42,8 +42,13 @@ def sendMail(filename, text="OTX_FEED_TODAY", error='' ):
 	msg["From"] = Header(MAILBOXSEND, 'utf-8')
 	msg["To"] = Header(MAILBOXRECV, 'utf-8')
 	subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
-	
 	msg["Subject"] = Header(subject, 'utf-8')
+	
+	msgContent = MIMEText(Content ,'html','utf-8')  #邮件内容
+	msgContent["Accept-Language"]="zh-CN"
+	msgContent["Accept-Charset"]="ISO-8859-1,utf-8"  
+	msg.attach(msgContent)
+
 	attachment = MIMEApplication(open(filename,'rb').read()) 
 	attachment.add_header('Content-Disposition', 'attachment', filename=os.path.basename(filename))  
 	msg.attach(attachment)  
