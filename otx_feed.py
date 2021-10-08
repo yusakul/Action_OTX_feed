@@ -13,6 +13,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
 
 # 系统变量
 OTXKEY = os.environ['OTXKEY']
@@ -37,7 +38,7 @@ def sendMail(filename, text="OTX_FEED_TODAY", error='' ):
 	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	duration = datetime.datetime.utcnow() - dkStart
 	content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
-	msg = MIMEText(content, 'plain', 'utf-8')
+	msg = MIMEMultipart(content, 'plain', 'utf-8')
 	msg["From"] = Header(MAILBOXSEND, 'utf-8')
 	msg["To"] = Header(MAILBOXRECV, 'utf-8')
 	subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
