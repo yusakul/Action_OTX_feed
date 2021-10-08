@@ -32,7 +32,7 @@ proxies = {
 '''
 
 # 发送邮件通知
-def sendMail(text="OTX_FEED_TODAY", error=''):
+def sendMail(text="OTX_FEED_TODAY", error='', ZIPFILE):
 	print('发送邮件...')
 	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	duration = datetime.datetime.utcnow() - dkStart
@@ -41,7 +41,11 @@ def sendMail(text="OTX_FEED_TODAY", error=''):
 	msg["From"] = Header(MAILBOXSEND, 'utf-8')
 	msg["To"] = Header(MAILBOXRECV, 'utf-8')
 	subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
+	
 	msg["Subject"] = Header(subject, 'utf-8')
+	attachment = MIMEApplication(open(ZIPFILE,'rb').read()) 
+	attachment.add_header('Content-Disposition', 'attachment', filename=os.path.basename(ZIPFILE))  
+	msg.attach(attachment)  
 	try:
 		server = smtplib.SMTP()
 		server.connect(mail_host, 25)
@@ -132,6 +136,6 @@ if __name__ == "__main__":
 				sys.stdout.write("\rProcessed IOC count:\t"+str(lnum))
 				iocfile.write(outputline)
 	print("\n")			
-	print("ioc list written to "+filename)
+	print("ioc list written to "+ filename)
 	
-	sendMail()
+	sendMail("OTX_FEED_TODAY", '', filename)
