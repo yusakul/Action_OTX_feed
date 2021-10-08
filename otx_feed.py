@@ -12,7 +12,6 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 
-api_key="63e1133cb28b2e9a9a9bdc3beda6de712bf320c8252fcf4e251b05bc00454a8b"
 
 # 系统变量
 OTXKEY = os.environ['OTXKEY']
@@ -21,6 +20,7 @@ MAILBOXRECV = os.environ['MAILBOXRECV']
 MAILBOXSEND = os.environ['MAILBOXSEND']
 MAILPWSEND = os.environ['MAILPWSEND']
 
+api_key = OTXKEY
 mail_host = 'smtp.qq.com'
 dkStart = datetime.now()
 
