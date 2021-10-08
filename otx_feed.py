@@ -34,8 +34,7 @@ proxies = {
 # 发送邮件通知
 def sendMail(text="OTX_FEED_TODAY", error=''):
     print('发送邮件...')
-    if MAIL_NOTICE == 'on':
-        timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         duration =datetime.datetime.utcnow() - dkStart
         content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
         msg = MIMEText(content, 'plain', 'utf-8')
@@ -52,6 +51,7 @@ def sendMail(text="OTX_FEED_TODAY", error=''):
             print("邮件发送成功！")
         except Exception as e:
             print("邮件发送失败！\n{}".format(e))
+        
 
 if __name__ == "__main__":
 	importlib.reload(sys)
