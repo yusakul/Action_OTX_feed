@@ -39,7 +39,7 @@ def sendMail(filename, text="OTX_FEED_TODAY", error='' ):
 	duration = datetime.datetime.utcnow() - dkStart
 	Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
 	Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
-	msg = MIMEMultipart(content, 'plain', 'utf-8')
+	msg = MIMEMultipart(Content, 'plain', 'utf-8')
 	msg["From"] = Header(MAILBOXSEND, 'utf-8')
 	msg["To"] = Header(MAILBOXRECV, 'utf-8')
 	subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
