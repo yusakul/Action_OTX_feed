@@ -137,5 +137,7 @@ if __name__ == "__main__":
 				iocfile.write(outputline)
 	print("\n")			
 	print("ioc list written to "+ filename)
+	filepath = os.getcwd()+'/'+filename
+	print(filepath)
 	
-	sendMail(filename, "OTX_FEED_TODAY", '' )
+	sendMail(filepath, "OTX_FEED_TODAY", '' )
