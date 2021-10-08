@@ -77,7 +77,7 @@ if __name__ == "__main__":
 									ioclist["ipv4"].append([m.group(1) ,name,description,author,references])
 								else:
 									ioclist["domain"].append([m.group(1) ,name,description,author,references])
-	filename="ioclist.csv"
+	filename="ioclist_"+ time.strftime('%Y%m%d', time.localtime(time.time())) +".csv"
 	if len(sys.argv)>1 and len(sys.argv[1])>1:
 		filename=sys.argv[1]
 	with open(filename,"w+") as iocfile:				
