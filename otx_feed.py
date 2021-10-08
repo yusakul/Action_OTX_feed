@@ -2,7 +2,7 @@
 import requests 
 import json
 import re
-#import datetime
+import datetime
 import sys
 import unidecode
 import importlib
@@ -12,7 +12,6 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
-from datetime import datetime
 
 
 # 系统变量
@@ -24,7 +23,7 @@ MAILPWSEND = os.environ['MAILPWSEND']
 
 api_key = OTXKEY
 mail_host = 'smtp.qq.com'
-dkStart = datetime.now()
+dkStart = datetime.datetime.utcnow()
 
 '''
 proxies = {
@@ -37,7 +36,7 @@ def sendMail(text="OTX_FEED_TODAY", error=''):
     print('发送邮件...')
     if MAIL_NOTICE == 'on':
         timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        duration = datetime.now() - dkStart
+        duration =datetime.datetime.utcnow() - dkStart
         content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
         msg = MIMEText(content, 'plain', 'utf-8')
         msg["From"] = Header(MAILBOXSEND, 'utf-8')
