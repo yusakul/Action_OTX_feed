@@ -8,12 +8,50 @@ import unidecode
 import importlib
 import time
 
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+
 api_key="63e1133cb28b2e9a9a9bdc3beda6de712bf320c8252fcf4e251b05bc00454a8b"
+
+# 系统变量
+OTXKEY = os.environ['OTXKEY']
+MAIL_NOTICE = os.environ['MAIL_NOTICE']
+MAILBOXRECV = os.environ['MAILBOXRECV']
+MAILBOXSEND = os.environ['MAILBOXSEND']
+MAILPWSEND = os.environ['MAILPWSEND']
+
+mail_host = 'smtp.qq.com'
+dkStart = datetime.now()
+
 '''
 proxies = {
     'https' : 'http://127.0.0.1:7890'
 }
 '''
+
+# 发送邮件通知
+def sendMail(text="OTX_FEED_TODAY", error=''):
+    print('发送邮件...')
+    if MAIL_NOTICE == 'on':
+        timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        duration = datetime.now() - dkStart
+        content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
+        msg = MIMEText(content, 'plain', 'utf-8')
+        msg["From"] = Header(MAILBOXSEND, 'utf-8')
+        msg["To"] = Header(MAILBOXRECV, 'utf-8')
+        subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
+        msg["Subject"] = Header(subject, 'utf-8')
+        try:
+            server = smtplib.SMTP()
+            server.connect(mail_host, 25)
+            server.login(MAILBOXSEND, MAILPWSEND)
+            server.sendmail(MAILBOXSEND, MAILBOXRECV, msg.as_string())
+            server.quit()
+            print("邮件发送成功！")
+        except Exception as e:
+            print("邮件发送失败！\n{}".format(e))
+
 if __name__ == "__main__":
 	importlib.reload(sys)
 	#reload(sys)
@@ -94,3 +132,5 @@ if __name__ == "__main__":
 				iocfile.write(outputline)
 	print("\n")			
 	print("ioc list written to "+filename)
+	
+	sendMail()
