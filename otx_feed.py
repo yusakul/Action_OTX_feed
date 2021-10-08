@@ -9,6 +9,7 @@ import importlib
 import time
 import os
 
+
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
@@ -40,7 +41,7 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	duration = datetime.datetime.utcnow() - dkStart
 	
-	Mail_List = file(Mail_List_File)#邮件地址列表
+	Mail_List = open(Mail_List_File, 'r')#邮件地址列表
 	Mail_To   = []
 	for list in Mail_List:#读取邮件列表文件
 		Mail_To.extend(list.strip().split(','))
