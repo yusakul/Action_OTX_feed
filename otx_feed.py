@@ -38,12 +38,13 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	duration = datetime.datetime.utcnow() - dkStart
 	
+	msg = MIMEMultipart() 
 	Subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
 	Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
 	Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
-	msg["Subject"] = Subject #邮件标题
-	msg["From"]    = Mail_User  
-	msg["To"]      = ",".join(Mail_To)     
+	msg["Subject"] = Header(Subject, 'utf-8') #邮件标题
+        msg["From"] = Header(MAILBOXSEND, 'utf-8')
+        msg["To"] = Header(MAILBOXRECV, 'utf-8')
 	msgContent = MIMEText(Content ,'html','utf-8')  #邮件内容
 	msgContent["Accept-Language"]="zh-CN"
 	msgContent["Accept-Charset"]="ISO-8859-1,utf-8"  
