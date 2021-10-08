@@ -33,24 +33,24 @@ proxies = {
 
 # 发送邮件通知
 def sendMail(text="OTX_FEED_TODAY", error=''):
-    print('发送邮件...')
-    timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        duration =datetime.datetime.utcnow() - dkStart
-        content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
-        msg = MIMEText(content, 'plain', 'utf-8')
-        msg["From"] = Header(MAILBOXSEND, 'utf-8')
-        msg["To"] = Header(MAILBOXRECV, 'utf-8')
-        subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
-        msg["Subject"] = Header(subject, 'utf-8')
-        try:
-            server = smtplib.SMTP()
-            server.connect(mail_host, 25)
-            server.login(MAILBOXSEND, MAILPWSEND)
-            server.sendmail(MAILBOXSEND, MAILBOXRECV, msg.as_string())
-            server.quit()
-            print("邮件发送成功！")
-        except Exception as e:
-            print("邮件发送失败！\n{}".format(e))
+	print('发送邮件...')
+	timeNow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+	duration = datetime.datetime.utcnow() - dkStart
+	content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
+	msg = MIMEText(content, 'plain', 'utf-8')
+	msg["From"] = Header(MAILBOXSEND, 'utf-8')
+	msg["To"] = Header(MAILBOXRECV, 'utf-8')
+	subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
+	msg["Subject"] = Header(subject, 'utf-8')
+	try:
+		server = smtplib.SMTP()
+		server.connect(mail_host, 25)
+		server.login(MAILBOXSEND, MAILPWSEND)
+		server.sendmail(MAILBOXSEND, MAILBOXRECV, msg.as_string())
+		server.quit()
+		print("邮件发送成功！")
+	except Exception as e:
+		print("邮件发送失败！\n{}".format(e))
         
 
 if __name__ == "__main__":
