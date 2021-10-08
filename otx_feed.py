@@ -50,8 +50,9 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	
 	msg = MIMEMultipart() 
 	Subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
-	Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
-	Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
+	#Content = "{}\n{}\n本次耗时{}秒！".format(timeNow, text, duration)
+	#Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
+	Content = 'otx.alienvault订阅feeds拉取' + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
 	msg["Subject"] = Header(Subject, 'utf-8') #邮件标题
 	msg["From"] = Header(MAILBOXSEND, 'utf-8')
 	msg["To"] = Header(",".join(Mail_To), 'utf-8')
