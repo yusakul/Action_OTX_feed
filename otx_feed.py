@@ -30,7 +30,7 @@ Current_cwd = os.path.abspath(os.path.dirname(__file__))
 Mail_List_File = Current_cwd + r'/Mail_list.ini'
 
 '''
-proxies = {
+proxies = { 
     'https' : 'http://127.0.0.1:7890'
 }
 '''
