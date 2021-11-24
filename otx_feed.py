@@ -31,7 +31,7 @@ Mail_List_File = Current_cwd + r'/Mail_list.ini'
 
 '''
 proxies = {
-    'https' : 'http://127.0.0.1:7890'
+    'https' : 'http://127.0.0.1:7890' 
 }
 '''
 
