@@ -1,2 +1,2 @@
 # Action_OTX_feed
-拉取otx.alienvault订阅情报并下载为csv发送邮件
+拉取otx.alienvault订阅情报
