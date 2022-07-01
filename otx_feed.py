@@ -84,7 +84,10 @@ if __name__ == "__main__":
 		print("No api key specified.")
 		sys.exit(1)
 	now=datetime.datetime.utcnow()
-	yesterday=datetime.datetime(now.year,now.month,now.day-1,now.hour,now.minute,now.second,now.microsecond).isoformat()
+	
+	from datetime import date, timedelta
+	yesterday=datetime.datetime(now.year,now.month, (date.today() + timedelta(days=-1)),now.hour,now.minute,now.second,now.microsecond).isoformat()
+	#yesterday=datetime.datetime(now.year,now.month,now.day-1,now.hour,now.minute,now.second,now.microsecond).isoformat()
 	
 	response=requests.get(
 		"https://otx.alienvault.com/api/v1/pulses/subscribed?limit=5000&modified_since="+yesterday.strip(),
