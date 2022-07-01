@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	
 	from datetime import date, timedelta
 	
-	yesterday = (date.today() + timedelta(days=-17)).strftime("%Y-%m-%d")
+	yesterday = (date.today() + timedelta(days=-1)).strftime("%Y-%m-%d")
 	#yesterday=datetime.datetime(now.year,now.month, (date.today() + timedelta(days=-1)),now.hour,now.minute,now.second,now.microsecond).isoformat()
 	#yesterday=datetime.datetime(now.year,now.month,now.day-1,now.hour,now.minute,now.second,now.microsecond).isoformat()
 	
