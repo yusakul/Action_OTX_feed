@@ -86,7 +86,9 @@ if __name__ == "__main__":
 	now=datetime.datetime.utcnow()
 	
 	from datetime import date, timedelta
-	yesterday=datetime.datetime(now.year,now.month, (date.today() + timedelta(days=-1)),now.hour,now.minute,now.second,now.microsecond).isoformat()
+	
+	yesterday = (date.today() + timedelta(days=-1)).strftime("%Y-%m-%d")
+	#yesterday=datetime.datetime(now.year,now.month, (date.today() + timedelta(days=-1)),now.hour,now.minute,now.second,now.microsecond).isoformat()
 	#yesterday=datetime.datetime(now.year,now.month,now.day-1,now.hour,now.minute,now.second,now.microsecond).isoformat()
 	
 	response=requests.get(
