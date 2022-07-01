@@ -92,7 +92,7 @@ if __name__ == "__main__":
 	#yesterday=datetime.datetime(now.year,now.month,now.day-1,now.hour,now.minute,now.second,now.microsecond).isoformat()
 	
 	response=requests.get(
-		"https://otx.alienvault.com/api/v1/pulses/subscribed?limit=5000&modified_since="+yesterday.strip(),
+		"https://otx.alienvault.com/api/v1/pulses/subscribed?limit=500000&modified_since="+yesterday.strip(),
 		headers={"X-OTX-API-KEY":api_key} #,proxies=proxies
 	)
 	#print(response.text)
