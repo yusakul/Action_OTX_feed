@@ -54,7 +54,11 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	#Content = Content + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
 	Content = 'otx.alienvault订阅feeds拉取' + '<br>' + '<br>' + "-----------" + '<br>' + "这是一份自动邮件，请不要回复！！"
 	msg["Subject"] = Header(Subject, 'utf-8') #邮件标题
-	msg["From"] = Header(MAILBOXSEND, 'utf-8')
+	# QQ邮箱使用SMTPLIB 报错550，'The "From" header is missing or invalid. 
+	# 详见https://www.zhihu.com/question/414626992/answer/2987902666?utm_id=0
+	# 删除utf-8
+	# msg["From"] = Header(MAILBOXSEND, 'utf-8')
+	msg["From"] = Header(MAILBOXSEND)
 	msg["To"] = Header(",".join(Mail_To), 'utf-8')
 	msgContent = MIMEText(Content ,'html','utf-8')  #邮件内容
 	msgContent["Accept-Language"]="zh-CN"
