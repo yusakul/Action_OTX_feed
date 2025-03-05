@@ -22,7 +22,7 @@ MAIL_NOTICE = os.environ['MAIL_NOTICE']
 MAILBOXRECV = os.environ['MAILBOXRECV']
 MAILBOXSEND = os.environ['MAILBOXSEND']
 MAILPWSEND = os.environ['MAILPWSEND']
-MYMAIL = os.environ['MYMAIL']
+MYMAIL = os.environ['MYMAIL'] 
 
 api_key = OTXKEY
 mail_host = 'smtp.qq.com'
