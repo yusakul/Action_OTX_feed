@@ -22,7 +22,7 @@ MAIL_NOTICE = os.environ['MAIL_NOTICE']
 MAILBOXRECV = os.environ['MAILBOXRECV']
 MAILBOXSEND = os.environ['MAILBOXSEND']
 MAILPWSEND = os.environ['MAILPWSEND']
-MYMAIL = os.environ['MYMAIL']
+# MYMAIL = os.environ['MYMAIL']
 
 api_key = OTXKEY
 mail_host = 'smtp.qq.com'
@@ -43,7 +43,7 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	duration = datetime.datetime.utcnow() - dkStart
 	
 	Mail_List = open(Mail_List_File, 'r')#邮件地址列表
-	Mail_List.append(MYMAIL)
+	# Mail_List.append(MYMAIL)
 	Mail_To   = []
 	for list in Mail_List:#读取邮件列表文件
 		Mail_To.extend(list.strip().split(','))
