@@ -43,4 +43,5 @@ jobs:
         MAILBOXSEND: ${{ secrets.MAILBOXSEND }}
         MAILPWSEND: ${{ secrets.MAILPWSEND }}
         MYMAIL1: ${{ secrets.MYMAIL1 }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 自动注入
+        GITHUB_REPOSITORY: ${{ github.repository }}  # 自动注入
