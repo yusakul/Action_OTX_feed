@@ -164,9 +164,10 @@ if __name__ == "__main__":
 				lnum+=1
 				outputline=','.join(e).strip(",")
 				outputline=k+","+outputline+"\n"
-				sys.stdout.write("\rProcessed IOC count:\t"+str(lnum))
+				#sys.stdout.write("\rProcessed IOC count:\t"+str(lnum))
 				iocfile.write(outputline)
-	print("\n")			
+	print("\n")	
+	print("\rProcessed IOC count:\t"+str(lnum))
 	print("ioc list written to "+ filename)
 	filepath = os.getcwd()+'/'+filename
 	print(filepath)
