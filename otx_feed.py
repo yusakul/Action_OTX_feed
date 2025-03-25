@@ -23,7 +23,7 @@ MAILBOXRECV = os.environ['MAILBOXRECV']
 MAILBOXSEND = os.environ['MAILBOXSEND']
 MAILPWSEND = os.environ['MAILPWSEND']
 #MYMAIL = os.environ['MYMAIL'] + '@qq.com'
-QQMAIL = os.environ['QQMAIL'] + '@qq.com'
+QQMAIL = os.environ['MYMAIL'] + '@qq.com'
 
 
 api_key = OTXKEY
