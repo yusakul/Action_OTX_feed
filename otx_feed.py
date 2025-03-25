@@ -225,8 +225,8 @@ if __name__ == "__main__":
 	print(filepath)
 	
 	#sendMail(filepath, "OTX_FEED_TODAY", '' )
-
+	
 	repo_name = os.getenv("GITHUB_REPOSITORY")
-    	github_token = os.getenv("GITHUB_TOKEN")
+	github_token = os.getenv("GITHUB_TOKEN")
 	upload_to_github_repo("IOC/"+filename, 'yusakul/Action_OTX_feed', github_token)
 
