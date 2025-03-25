@@ -90,7 +90,6 @@ def upload_file_to_github(
     file_path: str,
     repo_name: str,
     github_token: str,
-    target_path: Optional[str] = None,
     branch: str = "main"
 ) -> None:
     """
@@ -102,7 +101,7 @@ def upload_file_to_github(
     :param branch: 目标分支
     """
     # 确定目标路径
-    target_path = target_path or os.path.basename(file_path)
+    target_path = os.path.basename(file_path)
     
     # 读取文件内容
     try:
