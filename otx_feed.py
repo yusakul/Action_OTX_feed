@@ -47,10 +47,10 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	#Mail_List.append(MYMAIL1)
 	Mail_To   = []
 	Mail_To.append(MYMAIL1)
-	for list in Mail_List:#读取邮件列表文件
-		Mail_To.extend(list.strip().split(','))
-	Mail_List.close()
-	msg = MIMEMultipart() 
+	#for list in Mail_List:#读取邮件列表文件
+	#	Mail_To.extend(list.strip().split(','))
+	#Mail_List.close()
+	#msg = MIMEMultipart() 
 	
 	msg = MIMEMultipart() 
 	Subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
