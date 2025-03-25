@@ -52,7 +52,7 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	#for list in Mail_List:#读取邮件列表文件
 	#	Mail_To.extend(list.strip().split(','))
 	#Mail_List.close()
-	#msg = MIMEMultipart() 
+	msg = MIMEMultipart() 
 	
 	msg = MIMEMultipart() 
 	Subject = "{0}-{1}".format(time.strftime("%Y%m%d", time.localtime()), text)
@@ -223,9 +223,9 @@ if __name__ == "__main__":
 	filepath = os.getcwd()+'/'+filename
 	print(filepath)
 	
-	#sendMail(filepath, "OTX_FEED_TODAY", '' )
+	sendMail(filepath, "OTX_FEED_TODAY", '' )
 	
-	repo_name = os.getenv("GITHUB_REPOSITORY")
-	github_token = os.getenv("GITHUB_TOKEN")
-	upload_file_to_github(filename, 'yusakul/Action_OTX_feed', github_token)
+	#repo_name = os.getenv("GITHUB_REPOSITORY")
+	#github_token = os.getenv("GITHUB_TOKEN")
+	#upload_file_to_github(filename, 'yusakul/Action_OTX_feed', github_token)
 
