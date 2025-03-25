@@ -16,6 +16,8 @@ from email.header import Header
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 
+from github import Github
+
 # 系统变量
 OTXKEY = os.environ['OTXKEY']
 MAIL_NOTICE = os.environ['MAIL_NOTICE']
@@ -82,7 +84,56 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 		print("邮件发送成功！")
 	except Exception as e:
 		print("邮件发送失败！\n{}".format(e))
-        
+
+
+def upload_file_to_github(
+    file_path: str,
+    repo_name: str,
+    github_token: str,
+    target_path: Optional[str] = None,
+    branch: str = "main"
+) -> None:
+    """
+    上传文件到 GitHub 仓库（自动处理文本/二进制）
+    :param file_path: 本地文件路径
+    :param repo_name: 仓库名（如 "user/repo"）
+    :param github_token: GitHub Token
+    :param target_path: 仓库内目标路径（默认同本地文件名）
+    :param branch: 目标分支
+    """
+    # 确定目标路径
+    target_path = target_path or os.path.basename(file_path)
+    
+    # 读取文件内容
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()  # 文本内容
+        is_binary = False
+    except UnicodeDecodeError:
+        with open(file_path, "rb") as f:
+            content = base64.b64encode(f.read()).decode("utf-8")  # 二进制内容
+        is_binary = True
+    
+    # 提交到 GitHub
+    repo = Github(github_token).get_repo(repo_name)
+    try:
+        # 尝试更新现有文件
+        existing_file = repo.get_contents(target_path, ref=branch)
+        repo.update_file(
+            path=target_path,
+            message=f"Update {os.path.basename(file_path)}",
+            content=content,
+            sha=existing_file.sha,
+            branch=branch
+        )
+    except Exception:
+        # 创建新文件
+        repo.create_file(
+            path=target_path,
+            message=f"Add {os.path.basename(file_path)}",
+            content=content,
+            branch=branch
+        )
 
 if __name__ == "__main__":
 	importlib.reload(sys)
@@ -173,4 +224,9 @@ if __name__ == "__main__":
 	filepath = os.getcwd()+'/'+filename
 	print(filepath)
 	
-	sendMail(filepath, "OTX_FEED_TODAY", '' )
+	#sendMail(filepath, "OTX_FEED_TODAY", '' )
+
+	repo_name = repo_name or os.getenv("GITHUB_REPOSITORY")
+    	github_token = github_token or os.getenv("GITHUB_TOKEN")
+	upload_to_github_repo("IOC/"+filename, 'yusakul/Action_OTX_feed', github_token)
+
