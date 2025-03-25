@@ -76,7 +76,8 @@ def sendMail(ZIPFILE, text="OTX_FEED_TODAY", error='' ):
 	
 
 	try:
-		server = smtplib.SMTP()
+		#server = smtplib.SMTP()  #Connection unexpectedly closed
+		server = smtplib.SMTP_SSL(mail_host,465)
 		server.connect(mail_host, 25)
 		server.login(MAILBOXSEND, MAILPWSEND)
 		server.sendmail(MAILBOXSEND, Mail_To, msg.as_string())
