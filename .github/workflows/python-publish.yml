@@ -43,3 +43,4 @@ jobs:
         MAILBOXSEND: ${{ secrets.MAILBOXSEND }}
         MAILPWSEND: ${{ secrets.MAILPWSEND }}
         MYMAIL1: ${{ secrets.MYMAIL1 }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
