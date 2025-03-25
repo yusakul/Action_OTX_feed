@@ -42,3 +42,4 @@ jobs:
         MAILBOXRECV: ${{ secrets.MAILBOXRECV }}
         MAILBOXSEND: ${{ secrets.MAILBOXSEND }}
         MAILPWSEND: ${{ secrets.MAILPWSEND }}
+        MYMAIL1: ${{ secrets.MYMAIL1 }}
